@@ -1,0 +1,12 @@
+function myMapper() {
+	{
+	 for (var idx = 0; idx < this.entities.hashtags.length; idx++){
+	 var key = this.entities.hashtags[idx];
+	 emit(key.text,1);	
+}}}
+
+function myReducer(key, values) {
+    return Array.sum( values );}
+
+db.tweets.mapReduce(myMapper, myReducer, { query: {}, out: "hashtag" })
+db.hashtag.aggregate({$sort: {value: -1}})
